@@ -1,5 +1,7 @@
 Using:
 
-requests
-BeautifulSoup4
-lxml 
+1. requests
+
+2. BeautifulSoup4
+
+3. lxml 
