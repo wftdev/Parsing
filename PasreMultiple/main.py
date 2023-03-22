@@ -13,8 +13,9 @@ def get_data(html):
 	plugins = popular_section.find_all('article')
 	
 	for plugin in plugins:
-		name = plugin.find('h3')
-		print(name.text)
+		name = plugin.find('h3').text
+		url = plugin.find('h3').find('a').get('href')
+		print(f'{name}: {url}')
 	
 	#return len(plugins)
 
