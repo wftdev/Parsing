@@ -10,12 +10,18 @@ def get_html(url):
 def get_data(html):
 	soup = BSoup(html, 'lxml')
 	popular_section = soup.find_all('section')[3]
-	return popular_section
+	plugins = popular_section.find_all('article')
+	
+	for plugin in plugins:
+		name = plugin.find('h3')
+		print(name.text)
+	
+	#return len(plugins)
 
 
 def main():
 	url = 'https://wordpress.org/plugins/'
-	print(get_data(get_html(url)))
+	get_data(get_html(url))
 	
 
 if __name__ == '__main__':
