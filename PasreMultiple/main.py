@@ -7,6 +7,12 @@ def get_html(url):
 	return response.text
 	
 
+def normalize_text(text):
+	splitted = text.split(' ')[0]
+	result = splitted.replace(',', '')
+	return result
+	
+
 def get_data(html):
 	soup = BSoup(html, 'lxml')
 	popular_section = soup.find_all('section')[3]
@@ -15,7 +21,9 @@ def get_data(html):
 	for plugin in plugins:
 		name = plugin.find('h3').text
 		url = plugin.find('h3').find('a').get('href')
-		print(f'{name}: {url}')
+		rating = plugin.find('span', class_='rating-count').find('a').text
+		rating = normalize_text(rating)
+		print(f'{name}: {url}    Rating: {rating}')
 	
 	#return len(plugins)
 
