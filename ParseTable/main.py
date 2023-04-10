@@ -16,6 +16,7 @@ def write_csv(data):
                          data['price'],
                          'https://coinmarketcap.com' + data['url']))
 
+
 def get_data(html):
     soup = BSoup(html, 'lxml')
     table = soup.find('div', class_='sc-beb003d5-2 bkNrIb').find('table').find('tbody').find_all('tr')  # find all rows
@@ -27,12 +28,12 @@ def get_data(html):
 
         try:
             name = cells[2].find('a', class_='cmc-link').find_all('span')[1].text
-        except:
+        except Exception:
             name = cells[2].find('a', class_='cmc-link').find('p', class_='sc-4984dd93-0 kKpPOn').text
 
         try:
             token = cells[2].find('a', class_='cmc-link').find('span', class_='crypto-symbol').text
-        except:
+        except AttributeError:
             token = cells[2].find('a', class_='cmc-link').find('p', class_='sc-4984dd93-0 iqdbQL coin-item-symbol').text
 
         # print(name + '[' + token + ']: https://coinmarketcap.com' + href + ' ' + price)
