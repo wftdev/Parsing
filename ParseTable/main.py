@@ -9,10 +9,12 @@ def get_html(url):
 
 
 def write_csv(data):
-    with open('coinmarketcapdata.csv', data) as f:
+    with open('coinmarketcapdata.csv', 'a') as f:
         writer = csv.writer(f)
-        pass
-
+        writer.writerow((data['name'],
+                         data['token'],
+                         data['price'],
+                         'https://coinmarketcap.com' + data['url']))
 
 def get_data(html):
     soup = BSoup(html, 'lxml')
@@ -33,7 +35,14 @@ def get_data(html):
         except:
             token = cells[2].find('a', class_='cmc-link').find('p', class_='sc-4984dd93-0 iqdbQL coin-item-symbol').text
 
-        print(name + '[' + token + ']: https://coinmarketcap.com' + href + ' ' + price)
+        # print(name + '[' + token + ']: https://coinmarketcap.com' + href + ' ' + price)
+        data = {'name': name,
+                'token': token,
+                'price': price,
+                'url': href
+                }
+
+        write_csv(data)
 
 
 def main():
